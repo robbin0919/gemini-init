@@ -196,9 +196,15 @@ case "$use_ctx7" in
     jq '.mcpServers.context7 = {}' .gemini/settings.json | sponge .gemini/settings.json
 # The 'type' key is no longer supported in gemini 0.22.2 for mcpServers.context7.
 #   jq '.mcpServers.context7.type = "stdio"' .gemini/settings.json | sponge .gemini/settings.json
-    jq '.mcpServers.context7.command = "npx"' .gemini/settings.json | sponge .gemini/settings.json
-    jq '.mcpServers.context7.args = ["-y","@upstash/context7-mcp"]' .gemini/settings.json | sponge .gemini/settings.json
-    jq '.mcpServers.context7.trust = true' .gemini/settings.json | sponge .gemini/settings.json
+#mcpServers.github 區塊的寫法（第 174-179 行）保持一致，提高了程式碼的一致性。
+#   jq '.mcpServers.context7.command = "npx"' .gemini/settings.json | sponge .gemini/settings.json
+#   jq '.mcpServers.context7.args = ["-y","@upstash/context7-mcp"]' .gemini/settings.json | sponge .gemini/settings.json
+#   jq '.mcpServers.context7.trust = true' .gemini/settings.json | sponge .gemini/settings.json
+    jq '.mcpServers.context7 = {
+      command: "npx",
+      args: ["-y", "@upstash/context7-mcp"],
+      trust: true
+    }' .gemini/settings.json | sponge .gemini/settings.json
     echo "✅ Context7 MCP server 已設定 🚀"
     ;;
   *)
